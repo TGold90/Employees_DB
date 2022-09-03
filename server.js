@@ -5,9 +5,7 @@ const { listen } = require("express/lib/application");
 const db = mysql.createConnection(
   {
     host: "localhost",
-    // MySQL username,
     user: "root",
-    // MySQL password
     password: "tomtomclub13",
     database: "org_db",
   }
@@ -93,7 +91,7 @@ const viewAllRoles = async () => {
 
 const addEmployee = async () => {
   try {
-    //creates array with different roles listed. have to declare first index to use.
+    //creates array with different roles listed in arr[0]
     const roles = await db
       .promise()
       .query(`SELECT title AS name, id AS value FROM role`);
@@ -157,16 +155,29 @@ const addDepartment = async () => {
 
 const addRole = async () => {
   try {
+    const departments = await db
+      .promise()
+      .query(`SELECT dept_name AS name, id AS value FROM department`);
+    console.log(departments[0]);
     const roleInfo = await inquirer.prompt([
       {
         type: "input",
-        name: "dept_name",
-        message: "What is the department name?",
+        name: "title",
+        message: "What is the role name?",
+      },
+      {
+        type: "number",
+        name: "salary",
+        message: "What is the salary of this role?",
+      },
+      {
+        type: "list",
+        name: "department_id",
+        choices: departments[0],
+        message: "Which department is this role under?",
       },
     ]);
-    const data = await db
-      .promise()
-      .query("INSERT INTO department SET ?", roleInfo);
+    const data = await db.promise().query("INSERT INTO role SET ?", roleInfo);
     console.log("Role succesfully added!");
     viewAllRoles();
   } catch (error) {
