@@ -63,7 +63,11 @@ const menu = async () => {
 
 const viewAllEmployees = async () => {
   try {
-    const data = await db.promise().query(`SELECT * FROM employee`);
+    const data = await db
+      .promise()
+      .query(
+        `SELECT employee.id, employee.first_name, employee.last_name, role.title, department.dept_name, role.salary, CONCAT(manager.first_name," ",manager.last_name) AS manager FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id LEFT JOIN employee manager ON employee.manager_id = manager.id`
+      );
     console.table(data[0]);
     menu();
   } catch (err) {
@@ -183,6 +187,41 @@ const addRole = async () => {
   } catch (error) {
     console.log(error);
   }
+};
+
+const updateRole = async () => {
+  try {
+    const roles = await db
+      .promise()
+      .query(`SELECT title AS name, id AS value FROM role`);
+    console.log(roles[0]);
+    //
+    const employees = await db
+      .promise()
+      .query(`SELECT first_name AS name, id AS value FROM employee`);
+    const newRole = await inquirer.prompt([
+      {
+        type: "list",
+        name: "id",
+        message: "Which employee would you like to update?",
+        choices: employees[0],
+      },
+      {
+        type: "list",
+        name: "role_id",
+        message: "Select a new role: ",
+        choices: roles[0],
+      },
+    ]);
+    const data = await db
+      .promise()
+      .query("UPDATE employee SET role_id = ? WHERE id = ?", [
+        newRole.role_id,
+        newRole.id,
+      ]);
+    console.log("Employee role updated!");
+    viewAllEmployees();
+  } catch (error) {}
 };
 
 menu();
