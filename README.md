@@ -7,8 +7,16 @@ Employees_DB is an easy to use command line applicaiton in which the user can po
 ## Usage
 
 To initiate Employees_DB, the user can invoke the applicaiton on the command line by typing server.js. Upon invocation, the user is presented with the following 8 options:
+-View All Employees
+-View All Departments
+-View All Roles
+-Add an Employee
+-Add a Department
+-Add a Role
+-Update an Employee Role
+-Exit.
 
-- View All Employees: Shows a table of all current employees with their ID, name, title, department, salary and manager.
+Each step is self explanatory and any steps required to complete each step are clearly spelled out in the Inquirer Prompt messages.
 
 ## Walkthrough Video
 
