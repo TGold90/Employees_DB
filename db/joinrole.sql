@@ -1,0 +1,1 @@
+SELECT role.id, role.title, role.salary, department.dept_name AS Department FROM role LEFT JOIN department ON role.department_id = department.id;
