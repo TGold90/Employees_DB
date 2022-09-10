@@ -20,4 +20,4 @@ Each step is self explanatory and any steps required to complete each step are c
 
 ## Walkthrough Video
 
-[Walkthrough Video](https://drive.google.com/file/d/1J6tZZlKQ0keU1ALg6C_KcaQZGTxA6Rzs/view?usp=sharing)
+[Walkthrough Video](https://drive.google.com/file/d/1Jl7I1zjnU7WJVSYdSZBMt7uuflNDSKCc/view?usp=sharing)
